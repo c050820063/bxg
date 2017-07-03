@@ -1,51 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="css/login.css">
-</head>
-<body>
-<div class="login-container">
-    <h3 class="text-center">博学谷后台管理系统</h3>
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">用户名</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="tc_name" placeholder="" value="前端学院">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">密码</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" name="tc_pass" placeholder="" value="123456">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-success btn-block btn-lg">登录</button>
-            </div>
-        </div>
-    </form>
-</div>
-</body>
-<script src="js/lib/jquery-2.1.4.js"></script>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/login.css"/>
+	</head>
+
+	<body>
+		<div class="login-page">
+			<form class="form-horizontal">
+				<h3 class="text-center">博学谷项目</h3>
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" value="前端学院" name="tc_name" placeholder="userName">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">密码</label>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" name="tc_pass" value="123456" placeholder="Password">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-danger btn-block">登录</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</body>
+
+</html>
+<script src="js/lib/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/lib/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-	$('form').on('submit',function() {
-		var loginInfo = $(this).serialize();
-//		console.log(loginInfo);
+	$('.login-page').on('submit','form',function() {
+		var data = $(this).serialize();
+//		console.log(data)
 		$.ajax({
 			type:"post",
+			data:data,
 			url:"/api/login",
-			data:loginInfo,
-			success:function(res) {
-				$.cookie('userInfo',JSON.stringify(res.result),{expires:1});
-				location.href = '/';
+			success: function(res) {
+				if(res.code!=200) throw new Error(res.msg);
+				$.cookie('userInfo',JSON.stringify(res.result));
+				location.href='/';
 			}
 		});
-		return false;
+		return false
 	})
 </script>
-</html>

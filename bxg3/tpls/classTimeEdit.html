@@ -1,0 +1,45 @@
+<div class="panel panel-default" id="modalTimeEdit">
+	<ol class="breadcrumb">
+			<li>
+				<a href="#">课程管理</a>
+			</li>
+			<li class="active">课时管理</li>
+		</ol>
+	<div class="panel-body">
+		<div class="panel panel-default">
+			<div class="panel-heading">课程基本信息</div>
+			<div class="panel-body">
+				<p>课程名称:{{cs_name}}</p>
+				<p>讲师名称:{{tc_name}}</p>
+				<p>课程图片:<img src="{{cs_cover}}" width="120px" height="120px"/></p>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">课时信息</div>
+			<div class="panel-body">
+				<table class="table table-bordered">
+				  <thead>
+				  	<tr>
+				  		<th>编号</th>
+				  		<th>名称</th>
+				  		<th>时长</th>
+				  		<th>操作</th>
+				  	</tr>
+				  </thead>
+				  <tbody>
+				  	{{each lessons}}
+				  	<tr>
+				  		<td>{{$value.ct_id}}</td>
+				  		<td>{{$value.ct_name}}</td>
+				  		<td>{{$value.ct_video_duration}}</td>
+				  		<td>
+				  			<button type="button" class="btn btn-primary btn-classTime-edit">操作</button>
+				  		</td>
+				  	</tr>
+				  	{{/each}}
+				  </tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,12 +1,12 @@
 require.config({
-	baseUrl: 'js',
+	baseUrl:'js',
 	paths: {
-		jquery: 'lib/jquery-2.1.4',
+		jquery:'lib/jquery-2.1.4',
 		cookie:'lib/jquery.cookie',
-		bootstrap:'../assets/bootstrap/js/bootstrap',
+		text:'lib/text',
+		tpls:'../tpls',
 		arttemplate:'lib/template-web',
-		text:"lib/text",
-		tpls:'../tpls'
+		bootstrap:'../assets/bootstrap/js/bootstrap'
 	},
 	shim: {
 		bootstrap: {
@@ -14,41 +14,37 @@ require.config({
 		}
 	}
 });
-require(['jquery','teacher/list','cookie'],function($,teacherList) {
-	var userInfoStr = $.cookie('userInfo');
-	if(!userInfoStr) {
-		location.href = 'login.html';
-	};
-	var userInfo = JSON.parse(userInfoStr);
-//	console.log(userInfo);
-	//1.动态获取头像
-	$('.aside .img-content img').attr('src',userInfo.tc_avatar);
-	//动态获取用户名
-	$(".profile-content h4").text(userInfo.tc_name);
-	//2.给list注册事件
-	$('.aside .list-group').on('click','button',function() {
-			$(this).addClass('active').siblings().removeClass('active');
-		
-		//a、讲师管理
-        if($(this).hasClass("btn-teacher")){
-
-            teacherList();
-
-        }else if($(this).hasClass("btn-course")){
-            //b、课程管理
-            $(".menu-content-container").html("课程管理");
-
-        }else if($(this).hasClass("btn-course-category")){
-            //b、课程分类
-            $(".menu-content-container").html("课程分类");
-
-        }else if($(this).hasClass("btn-chart")){
-            //b、图表统计
-            $(".menu-content-container").html("图表统计");
-
-        }
-        
+require(['jquery','teacher/teacherList','classSort/classSort','classManager/list','classManager/creat','classManager/time','cookie'],function($,teacherList,classSort,classManagerList,creatClass,timeManage) {
+	var cookieStr = $.cookie('userInfo');
+//	console.log(cookie);
+	if(!cookieStr) {
+		location.href = '/login.html';
+	}
+	var cookieData = JSON.parse(cookieStr);
+//	console.log(cookieData);
+	$('.profile-container img').attr('src',cookieData.tc_avatar);
+	$('.profile-container h3').html(cookieData.tc_name);
+	$('.list-group').on('click','button',function() {
+		$(this).addClass('active').siblings().removeClass('active');
+		if($(this).hasClass('teacher-manger')) {
+			teacherList();
+		}
+		if($(this).hasClass('class-manger')) {
+			classManagerList();
+		}
+		if($(this).hasClass('class-sort')) {
+			classSort();
+		}
+		if($(this).hasClass('creat-class')) {
+			creatClass();
+		}
+		if($(this).hasClass('chart-statis')) {
+			console.log(4);
+		}
+		if($(this).hasClass('time-manage')) {
+			var cs_id = $(this).attr('cs_id');
+			timeManage(cs_id);
+		}
 	})
-	//默认加载讲师管理
-        $('.aside button.btn-teacher').trigger('click');
+	$('.list-container .teacher-manger').trigger('click');
 })

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>bxg3</name>
+	<name>bxg</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -22,16 +22,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1498637487565</id>
-			<name></name>
-			<type>26</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-node_modules</arguments>
-			</matcher>
-		</filter>
-		<filter>
-			<id>1498891113964</id>
+			<id>1498961981312</id>
 			<name></name>
 			<type>26</type>
 			<matcher>
